@@ -10,4 +10,6 @@ char imprimirMenuPrincipal();
 char imprimirMenuJuego();
 void imprimirEstadisticasTurno(EstadisticasTurno turno);
 
+void cargarGrilla(Tablero &grilla);
+
 #endif //TP1ALGOII_IMPRESIONES_H

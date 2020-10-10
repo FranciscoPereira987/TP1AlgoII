@@ -7,6 +7,8 @@ struct Tablero{
 
     bool grilla[20][80];
 
+    bool grillaInicial[20][80];
+
 };
 
 struct InformacionJuego{
@@ -40,7 +42,7 @@ Tablero inicializarGrilla(){
     Tablero tablero;
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
-            tablero.grilla[fila][columna] = false;
+            tablero.grillaInicial[fila][columna] = false;
         }//Fin for interno
     }//Fin for
 

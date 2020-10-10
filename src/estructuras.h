@@ -8,8 +8,7 @@ struct Tablero{
 
     bool grilla[20][80];
 
-    char* filasIniciales;//Filas y columnas no se pasan nunca de 255
-    char* columnasIniciales;
+    bool grillaInicial[20][80];
 
 };
 

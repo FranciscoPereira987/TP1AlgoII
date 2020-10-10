@@ -17,10 +17,10 @@ void imprimirGrilla(bool grilla[20][80]){
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
             if(grilla[fila][columna]){
-                cout << "+";
+                cout << "V";
             }//Fin if
             else {
-                cout << "*";
+                cout << "M";
             }//Fin else
         }//Fin for interno
         cout << endl;
@@ -81,4 +81,56 @@ void imprimirEstadisticas(EstadisticasTurno turno){
     << endl
     << "Promedio de nacimientos total: " << turno.promedioNacimientos
     << endl;
+}
+
+bool continuarCarga(){
+    /*
+     * Define si se siguen o no se siguen cargando los datos
+     */
+    cout << "Ingrese 1 para continuar, cualquier otra tecla para "
+    << "terminar la carga de datos:" << endl << ">>";
+
+    int decision;
+    cin >> decision;
+
+    return (decision == 1);
+}
+
+int preguntarFila(){
+    /*
+     * Pregunta en que fila quiere cargar una celula viva
+     */
+    int fila;
+    cout << "Ingrese la fila de la celula: "
+    << endl << ">>>";
+
+    cin >> fila;
+    return fila - 1;
+}
+
+int preguntarColummna(){
+    /*
+     * Pregunta en que columna quiere cargar la celula
+     */
+    int columna;
+    cout << "Ingrese la columna de la celula: "
+    << endl << ">>>";
+
+    cin >> columna;
+    return columna - 1;
+}
+
+
+void cargarGrilla(Tablero &grilla){
+    /*
+     * Permite que el usuario carge la cantidad de
+     * celulas vivas que quiera
+     */
+    int contador = 0, fila, columna;
+    do{
+        fila = preguntarFila();
+        columna = preguntarColummna();
+        grilla.grillaInicial[fila][columna] = true;
+
+    }while(continuarCarga());
 }

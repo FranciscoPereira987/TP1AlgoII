@@ -4,6 +4,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+
 #include "estructuras.h"
 #include "impresiones.h"
 
@@ -12,13 +13,9 @@ int main(){
     cout << "Se empezo el TP1!!!" << endl;
     imprimirMenuPrincipal();
     InformacionJuego juegoNuevo = iniciarJuego();
+    cargarGrilla(juegoNuevo.grillaJuego);
 
-    cout << juegoNuevo.totalMuertes << " Muertes"
-    << endl;
-    cout << juegoNuevo.totalNacimientos << " Nacimientos"
-    <<endl;
-
-    imprimirGrilla(juegoNuevo.grillaJuego.grilla);
+    imprimirGrilla(juegoNuevo.grillaJuego.grillaInicial);
 
 
     return 0;
