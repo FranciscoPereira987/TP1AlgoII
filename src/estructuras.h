@@ -9,7 +9,6 @@ struct Tablero{
     bool grilla[20][80];
 
     bool grillaInicial[20][80];
-
 };
 
 struct InformacionJuego{

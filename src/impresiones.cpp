@@ -17,10 +17,10 @@ void imprimirGrilla(bool grilla[20][80]){
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
             if(grilla[fila][columna]){
-                cout << "V";
+                cout << "*";
             }//Fin if
             else {
-                cout << "M";
+                cout << " ";
             }//Fin else
         }//Fin for interno
         cout << endl;
@@ -131,6 +131,18 @@ void cargarGrilla(Tablero &grilla){
         fila = preguntarFila();
         columna = preguntarColummna();
         grilla.grillaInicial[fila][columna] = true;
+        grilla.grilla[fila][columna] = true;
 
     }while(continuarCarga());
+}
+
+bool avanzarTurno(){
+    /*
+     * Le pregunta al usuario si quiere o no avanzar un turno
+     */
+    char avanzar;
+    cout << "Ingrese y para avanzar" << endl << ">>>";
+    cin >> avanzar;
+
+    return (avanzar == 'y');
 }

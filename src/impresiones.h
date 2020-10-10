@@ -9,6 +9,8 @@ void imprimirGrilla(bool grilla[20][80]);
 char imprimirMenuPrincipal();
 char imprimirMenuJuego();
 void imprimirEstadisticasTurno(EstadisticasTurno turno);
+bool avanzarTurno();
+
 
 void cargarGrilla(Tablero &grilla);
 

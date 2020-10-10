@@ -43,6 +43,7 @@ Tablero inicializarGrilla(){
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
             tablero.grillaInicial[fila][columna] = false;
+            tablero.grilla[fila][columna] = false;
         }//Fin for interno
     }//Fin for
 
