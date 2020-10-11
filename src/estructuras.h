@@ -28,12 +28,11 @@ struct EstadisticasTurno{
     unsigned int cantidadVivas;
     unsigned int cantidadMuertes;
     unsigned int cantidadNacimientos;
-    unsigned int promedioMuertes;
-    unsigned int promedioNacimientos;
+
 };
 
 InformacionJuego iniciarJuego();
-
+void setearEstadisticasCero(EstadisticasTurno &estadisticas);
 
 
 #endif //TP1ALGOII_ESTRUCTURAS_H

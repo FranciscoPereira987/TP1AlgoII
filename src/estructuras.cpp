@@ -29,8 +29,7 @@ struct EstadisticasTurno{
     unsigned int cantidadVivas;
     unsigned int cantidadMuertes;
     unsigned int cantidadNacimientos;
-    unsigned int promedioMuertes;
-    unsigned int promedioNacimientos;
+
 };
 //Funciones de inicializacion de estructuras
 
@@ -51,7 +50,10 @@ Tablero inicializarGrilla(){
 }
 
 InformacionJuego iniciarJuego(){
-
+    /*
+     * Inicializa la estructura principal del juego
+     *
+     */
     InformacionJuego juegoNuevo;
 
     juegoNuevo.grillaJuego = inicializarGrilla();
@@ -60,4 +62,14 @@ InformacionJuego iniciarJuego(){
     juegoNuevo.cantTurnos = 0;
 
     return juegoNuevo;
+}
+
+void setearEstadisticasCero(EstadisticasTurno& estadisticas){
+    /*
+     * Devuelve todos los valores de una estadistica de juego
+     * a cero
+     */
+    estadisticas.cantidadVivas = 0;
+    estadisticas.cantidadMuertes = 0;
+    estadisticas.cantidadNacimientos = 0;
 }

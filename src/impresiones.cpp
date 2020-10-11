@@ -3,6 +3,8 @@
  * y las funciones que piden ingreso de datos del usuario
  */
 #include "estructuras.h"
+#include "aritmetica.h"
+
 
 #include <iostream>
 using std::cout;
@@ -20,34 +22,37 @@ void imprimirGrilla(bool grilla[20][80]){
                 cout << "*";
             }//Fin if
             else {
-                cout << " ";
+                cout << ".";
             }//Fin else
         }//Fin for interno
         cout << endl;
     }//Fin for externo
-
 }//Fin funcion
 
 
-char imprimirMenuPrincipal(){
+void imprimirBienvenida(){
     /*
      * Se encarga de imprimir el menu principal
      * y de promptear por una respuesta al usuario
      *
      */
-    char decision;
+    char comenzar;
 
     cout << "--------------------------" << endl
     << "JUEGO DE LA VIDA" << endl
-    << "-----------------------" << endl << endl
-    << "1- Comenzar" << endl
-    << "2- Salir" << endl
+    << "--------------------------" << endl << endl
+    << "Ingrese cualquier tecla comenzar" << endl
     << ">>>";
 
-    cin >> decision;
-
-    return decision;
+    cin >> comenzar;
 }
+
+void imprimirEleccionErronea(int opcionElegida){
+
+    cout << "La opcion elegida: " << opcionElegida
+    << endl << "es incorrecta" << endl;
+}
+
 
 char imprimirMenuJuego(){
     /*
@@ -66,23 +71,6 @@ char imprimirMenuJuego(){
     return decision;
 }
 
-void imprimirEstadisticas(EstadisticasTurno turno){
-    /*
-     * Imprime las estadisticas del juego
-     * luego de cada turno
-     */
-    cout << "Cantidad celulas vivas: " << turno.cantidadVivas
-    << endl
-    << "Cantidad nacimientos: " << turno.cantidadNacimientos
-    << endl
-    << "Cantidad muertes: " << turno.cantidadMuertes
-    << endl
-    << "Promedio de muertes total: " << turno.promedioMuertes
-    << endl
-    << "Promedio de nacimientos total: " << turno.promedioNacimientos
-    << endl;
-}
-
 bool continuarCarga(){
     /*
      * Define si se siguen o no se siguen cargando los datos
@@ -90,10 +78,10 @@ bool continuarCarga(){
     cout << "Ingrese 1 para continuar, cualquier otra tecla para "
     << "terminar la carga de datos:" << endl << ">>";
 
-    int decision;
+    char decision;
     cin >> decision;
 
-    return (decision == 1);
+    return (decision == '1');
 }
 
 int preguntarFila(){
@@ -121,7 +109,7 @@ int preguntarColummna(){
 }
 
 
-void cargarGrilla(Tablero &grilla){
+int cargarGrilla(Tablero &grilla){
     /*
      * Permite que el usuario carge la cantidad de
      * celulas vivas que quiera
@@ -130,19 +118,44 @@ void cargarGrilla(Tablero &grilla){
     do{
         fila = preguntarFila();
         columna = preguntarColummna();
-        grilla.grillaInicial[fila][columna] = true;
-        grilla.grilla[fila][columna] = true;
-
+        if(controlarPosicion(fila, columna)) {
+            grilla.grillaInicial[fila][columna] = true;
+            grilla.grilla[fila][columna] = true;
+            contador++;
+        }//Fin del if
+        else{
+            cout << "La posicion ingresada no existe" << endl;
+        }
     }while(continuarCarga());
+
+    return contador;
 }
 
-bool avanzarTurno(){
-    /*
-     * Le pregunta al usuario si quiere o no avanzar un turno
-     */
-    char avanzar;
-    cout << "Ingrese y para avanzar" << endl << ">>>";
-    cin >> avanzar;
+void imprimirVivas( int cantVivas){
 
-    return (avanzar == 'y');
+    cout << "Cantidad celulas vivas: " << cantVivas;
+}
+
+void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego){
+
+    imprimirGrilla(juego.grillaJuego.grillaInicial);
+    imprimirVivas(estadisticas.cantidadVivas);
+    cout << endl;
+}
+
+void imprimirCantidades(EstadisticasTurno estadisticas){
+    /*
+     * Imprime las estadisticas de un turno
+     */
+    imprimirVivas(estadisticas.cantidadVivas);
+    cout << " -- " << "Cantidad de muertes: " << estadisticas.cantidadMuertes
+    << " -- " << "Cantidad de nacimientos: " << estadisticas.cantidadNacimientos
+    << endl;
+}
+
+void imprimirPromedios(InformacionJuego juego){
+
+    cout << "Promedio de muertes: " << calcularPromedio(juego.totalMuertes, juego.cantTurnos)
+    << " -- " << "Promedio de nacimientos: " << calcularPromedio(juego.totalNacimientos, juego.cantTurnos)
+    << endl;
 }

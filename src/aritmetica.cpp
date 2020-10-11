@@ -15,7 +15,6 @@ void cargarCerosGrilla(char grillaNumerica[20][80]){
         }//Fin for interno
     }//Fin for
 }
-
 bool controlarPosicion(int filaActual, int colunmaActual){
     /*
      * Controla que los paramentros pasados se encuentren dentro de la grilla
@@ -26,7 +25,6 @@ bool controlarPosicion(int filaActual, int colunmaActual){
 
     return filaEnOrden && columnaEnOrden;
 }
-
 void actualizarAdyacentes(char grillaNumerica[20][80], int fila, int columna){
     /*
      * Actualiza el numero de celulas vivas adyacentes
@@ -37,7 +35,7 @@ void actualizarAdyacentes(char grillaNumerica[20][80], int fila, int columna){
     int movimientos[][2] = {
             {-1, 0}, {-1, 1}, {0, 1}, {1, 1},
             {1, 0}, {1, -1}, {0, -1}, {-1, -1}
-    };
+    }; //Son las posiciones relativas de las celulas adyacentes
     for(int i = 0; i < 8; i++){
         filaActual = movimientos[i][0] + fila;
         columnaActual = movimientos[i][1] + columna;
@@ -48,7 +46,6 @@ void actualizarAdyacentes(char grillaNumerica[20][80], int fila, int columna){
         }//Fin if
     }//FIn cilo for
 }
-
 void rellenarGrillaNumerica(bool grilla[20][80], char grillaNumerica[20][80]){
 
     for(int fila = 0; fila < 20; fila++){
@@ -59,8 +56,20 @@ void rellenarGrillaNumerica(bool grilla[20][80], char grillaNumerica[20][80]){
         }//Fin for interno
     }//Fin for externo
 }
-
-bool determinarCaso(bool estadoPasado, char vivasAdyacentes){
+void contarCelulas(EstadisticasTurno &estadisticas, bool nuevoEstado, bool estadoPasado){
+    /*
+     * Cuenta si una celula nacio o murio
+     */
+    if(nuevoEstado && !estadoPasado){//Si esta viva y antes estaba muerta
+        estadisticas.cantidadNacimientos += 1;
+        estadisticas.cantidadVivas += 1;
+    }//Fin if
+    else if (!nuevoEstado && estadoPasado){//Si esta muerta y estaba viva
+        estadisticas.cantidadMuertes += 1;
+        estadisticas.cantidadVivas -= 1;
+    }//Fin else if
+}
+bool determinarCaso(bool estadoPasado, char vivasAdyacentes, EstadisticasTurno &estadisticas){
     /*
      * define un numero de acuerdo al estado de la celula y
      * de la cantidad de vivas adyacentes en el turno pasado
@@ -72,11 +81,11 @@ bool determinarCaso(bool estadoPasado, char vivasAdyacentes){
         case false:
             viva = (vivasAdyacentes == 3);
     }
+    contarCelulas(estadisticas, viva, estadoPasado);
 
     return viva;
 }
-
-void cargarProximoTurno(Tablero &grilla, char grillaNumerica[20][80]){
+void cargarProximoTurno(Tablero &grilla, char grillaNumerica[20][80], EstadisticasTurno &estadisticas){
     /*
      * Modifica la grilla segun la cantidad de vivas
      * adyacentes
@@ -85,13 +94,13 @@ void cargarProximoTurno(Tablero &grilla, char grillaNumerica[20][80]){
         for(int columna = 0; columna < 80; columna++){
             grilla.grilla[fila][columna] = determinarCaso(
                     grilla.grilla[fila][columna],
-                    grillaNumerica[fila][columna]
+                    grillaNumerica[fila][columna],
+                    estadisticas
                     );
         }//Fin for interno
     }//Fin for externo
 }
-
-void actualizarGrilla(Tablero &grilla){
+void actualizarGrilla(Tablero &grilla, EstadisticasTurno &estadisticas){
     /*
      * Se encarga de actualizar el tablero
      * luego de cada turno
@@ -99,5 +108,24 @@ void actualizarGrilla(Tablero &grilla){
     char grillaNumerica[20][80];
     cargarCerosGrilla(grillaNumerica);
     rellenarGrillaNumerica(grilla.grilla, grillaNumerica);
-    cargarProximoTurno(grilla, grillaNumerica);
+    cargarProximoTurno(grilla, grillaNumerica, estadisticas);
 }
+
+int calcularPromedio(int suma, int cantidadTurnos){
+    //Calcula promedio de muertes y nacimientos
+
+    return (suma / cantidadTurnos); // Es siempre una division entera
+}
+
+void actualizarValores(InformacionJuego &juego, EstadisticasTurno &estadisticas){
+    /*
+     * Actualiza los valores de sumas, cant turno, cant Muertes y demas
+     */
+    juego.cantTurnos++;
+    juego.totalNacimientos += estadisticas.cantidadNacimientos;
+    juego.totalMuertes += estadisticas.cantidadMuertes;
+
+    estadisticas.cantidadNacimientos = 0;
+    estadisticas.cantidadMuertes = 0;
+}
+

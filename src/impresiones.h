@@ -6,12 +6,13 @@
 #define TP1ALGOII_IMPRESIONES_H
 
 void imprimirGrilla(bool grilla[20][80]);
-char imprimirMenuPrincipal();
+void imprimirBienvenida();
 char imprimirMenuJuego();
-void imprimirEstadisticasTurno(EstadisticasTurno turno);
-bool avanzarTurno();
+void imprimirEleccionErronea(int opcionElegida);
+void imprimirCantidades(EstadisticasTurno estadisticas);
+void imprimirPromedios(InformacionJuego juego);
+void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego);
 
-
-void cargarGrilla(Tablero &grilla);
+int cargarGrilla(Tablero &grilla);
 
 #endif //TP1ALGOII_IMPRESIONES_H
