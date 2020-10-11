@@ -18,8 +18,7 @@ struct InformacionJuego{
 
     unsigned int totalMuertes;
     unsigned int totalNacimientos;
-    unsigned int cantTurnos; //Considera al primer turno como
-    //la primer evolucion luego de haber colocado los valores
+    unsigned int cantTurnos;
 };
 
 struct EstadisticasTurno{
@@ -29,6 +28,7 @@ struct EstadisticasTurno{
     unsigned int cantidadVivas;
     unsigned int cantidadMuertes;
     unsigned int cantidadNacimientos;
+    unsigned int cantidadCambios;
 
 };
 //Funciones de inicializacion de estructuras
@@ -59,7 +59,8 @@ InformacionJuego iniciarJuego(){
     juegoNuevo.grillaJuego = inicializarGrilla();
     juegoNuevo.totalNacimientos = 0;
     juegoNuevo.totalMuertes = 0;
-    juegoNuevo.cantTurnos = 0;
+    juegoNuevo.cantTurnos = 0;//Considera al primer turno como
+    //la primer evolucion luego de haber colocado los valores
 
     return juegoNuevo;
 }
@@ -72,4 +73,5 @@ void setearEstadisticasCero(EstadisticasTurno& estadisticas){
     estadisticas.cantidadVivas = 0;
     estadisticas.cantidadMuertes = 0;
     estadisticas.cantidadNacimientos = 0;
+    estadisticas.cantidadCambios = 0;
 }

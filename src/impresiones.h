@@ -12,6 +12,7 @@ void imprimirEleccionErronea(int opcionElegida);
 void imprimirCantidades(EstadisticasTurno estadisticas);
 void imprimirPromedios(InformacionJuego juego);
 void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego);
+void imprimirEstabilidad(EstadisticasTurno &estadisticas);
 
 int cargarGrilla(Tablero &grilla);
 

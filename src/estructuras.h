@@ -28,6 +28,7 @@ struct EstadisticasTurno{
     unsigned int cantidadVivas;
     unsigned int cantidadMuertes;
     unsigned int cantidadNacimientos;
+    unsigned int cantidadCambios;
 
 };
 

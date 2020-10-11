@@ -75,12 +75,14 @@ bool determinarCaso(bool estadoPasado, char vivasAdyacentes, EstadisticasTurno &
      * de la cantidad de vivas adyacentes en el turno pasado
      */
     bool viva;
-    switch(estadoPasado){
-        case true:
-            viva = (vivasAdyacentes == 3) || (vivasAdyacentes == 2); break;
-        case false:
-            viva = (vivasAdyacentes == 3);
-    }
+
+    if(estadoPasado){
+        viva = (vivasAdyacentes == 3) || (vivasAdyacentes == 2);
+    }//Fin if
+    else{
+        viva = (vivasAdyacentes == 3);
+    }//Fin else
+
     contarCelulas(estadisticas, viva, estadoPasado);
 
     return viva;
@@ -129,3 +131,19 @@ void actualizarValores(InformacionJuego &juego, EstadisticasTurno &estadisticas)
     estadisticas.cantidadMuertes = 0;
 }
 
+int evaluarCambios(EstadisticasTurno estadisticas){
+    /*
+     * Evalua la cantidad de cambios que ocurrieron en un turno
+     */
+    int cantCambios = estadisticas.cantidadNacimientos + estadisticas.cantidadMuertes;
+    //Los cambios equivalen a la cantidad de celulas que murieron mas las que nacieron
+    return cantCambios;
+}
+
+bool evaluarEstabilidad(EstadisticasTurno &estadisticas){
+    int cambiosTurno = evaluarCambios(estadisticas);
+    bool estable = (cambiosTurno == 0 && estadisticas.cantidadCambios == 0);
+    estadisticas.cantidadCambios = cambiosTurno; //Guardo la cantidad de cambios para evaluarla a futuro
+
+    return estable;
+}

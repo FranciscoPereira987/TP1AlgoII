@@ -159,3 +159,13 @@ void imprimirPromedios(InformacionJuego juego){
     << " -- " << "Promedio de nacimientos: " << calcularPromedio(juego.totalNacimientos, juego.cantTurnos)
     << endl;
 }
+
+
+void imprimirEstabilidad(EstadisticasTurno &estadisticas){
+    /*
+     * Le informa al usuario que no hubo cambios en dos o mas turnos
+     */
+    if(evaluarEstabilidad(estadisticas)) {
+        cout << ">>>No hubo cambios por 2 o mas turnos<<<" << endl;
+    }//Fin if
+}

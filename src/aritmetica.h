@@ -10,5 +10,6 @@ bool controlarPosicion(int filaActual, int colunmaActual);
 void actualizarValores(InformacionJuego &juego, EstadisticasTurno &estadisticas);
 
 int calcularPromedio(int suma, int cantidad);
+bool evaluarEstabilidad(EstadisticasTurno &estadisticas);
 
 #endif //TP1ALGOII_ARITMETICA_H

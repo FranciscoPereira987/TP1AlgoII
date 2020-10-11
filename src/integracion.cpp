@@ -9,7 +9,7 @@
 
 void reiniciarJuego(Tablero &grillas, EstadisticasTurno &estadisticas);
 EstadisticasTurno presentarJuego(Tablero &grilla);
-void jugar(InformacionJuego &juego, EstadisticasTurno estadisticas);
+void jugar(InformacionJuego juego, EstadisticasTurno estadisticas);
 
 void juegoDeLaVida(){
     /*
@@ -54,17 +54,19 @@ char imprimirNuevoTurno(char eleccionPasada, InformacionJuego &juego, Estadistic
     return eleccionMenu;
 }
 
-void jugar(InformacionJuego &juego, EstadisticasTurno estadisticas){
+void jugar(InformacionJuego juego, EstadisticasTurno estadisticas){
     /*
      * Se encarga de correr el juego
      */
     char eleccionMenu; //Lo uso para determinar la eleccion del menu
+
     imprimirInicial(estadisticas, juego);
     do{
         eleccionMenu = imprimirNuevoTurno(eleccionMenu, juego, estadisticas);
         switch(eleccionMenu){
             case '1':
                 actualizarGrilla(juego.grillaJuego, estadisticas);
+                imprimirEstabilidad(estadisticas);
                 break;
             case '2':
                 reiniciarJuego(juego.grillaJuego, estadisticas);
