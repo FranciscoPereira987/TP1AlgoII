@@ -5,14 +5,16 @@
 #define TP1ALGOII_ESTRUCTURAS_H
 
 struct Tablero{
-
+	//Contiene a la grilla y una grilla
+	//inicial
     bool grilla[20][80];
 
     bool grillaInicial[20][80];
 };
 
 struct InformacionJuego{
-
+	//Contiene a la grilla e informacion
+	//general sobre el juego
     Tablero grillaJuego;
 
 

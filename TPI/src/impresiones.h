@@ -8,7 +8,7 @@
 void imprimirGrilla(bool grilla[20][80]);
 void imprimirBienvenida();
 char imprimirMenuJuego();
-void imprimirEleccionErronea(int opcionElegida);
+void imprimirEleccionErronea(char opcionElegida);
 void imprimirCantidades(EstadisticasTurno estadisticas);
 void imprimirPromedios(InformacionJuego juego);
 void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego);

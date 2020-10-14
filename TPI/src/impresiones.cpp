@@ -38,19 +38,30 @@ void imprimirBienvenida(){
      */
     char comenzar;
 
-    cout << "--------------------------" << endl
-    << "JUEGO DE LA VIDA" << endl
-    << "--------------------------" << endl << endl
-    << "Ingrese cualquier tecla comenzar" << endl
+    cout << "--------------------------"
+    	<< endl
+    << "JUEGO DE LA VIDA"
+		<< endl
+    << "--------------------------"
+		<< endl << endl
+    << "Ingrese cualquier tecla comenzar"
+		<< endl
     << ">>>";
 
-    cin >> comenzar;
+
+    cin >> comenzar; //Espera a que el usuario reaccione
+
 }
 
-void imprimirEleccionErronea(int opcionElegida){
-
+void imprimirEleccionErronea(char opcionElegida){
+	/*
+	 * Informa que se ingreso una opcion invalida
+	 * en el menu del juego
+	 */
     cout << "La opcion elegida: " << opcionElegida
-    << endl << "es incorrecta" << endl;
+    	<< endl
+	<< "Es incorrecta"
+		<< endl;
 }
 
 
@@ -61,9 +72,12 @@ char imprimirMenuJuego(){
      */
     char decision;
 
-    cout << "1- Avanzar turno" << endl
-    << "2- Reiniciar juego" << endl
-    << "3- Terminar juego" << endl
+    cout << "1- Avanzar turno"
+    	<< endl
+    << "2- Reiniciar juego"
+		<< endl
+    << "3- Terminar juego"
+		<< endl
     << ">>>";
 
     cin >> decision;
@@ -76,7 +90,9 @@ bool continuarCarga(){
      * Define si se siguen o no se siguen cargando los datos
      */
     cout << "Ingrese 1 para continuar, cualquier otra tecla para "
-    << "terminar la carga de datos:" << endl << ">>";
+    << "terminar la carga de datos:"
+		<< endl
+	<< ">>>";
 
     char decision;
     cin >> decision;
@@ -84,28 +100,25 @@ bool continuarCarga(){
     return (decision == '1');
 }
 
-int preguntarFila(){
+int preguntarPosicion(char posicion){
     /*
-     * Pregunta en que fila quiere cargar una celula viva
+     * Pregunta fila o columna donde el usuario quiera
+     * ingresar un dato y lo devuelve.
      */
     int fila;
-    cout << "Ingrese la fila de la celula: "
-    << endl << ">>>";
+
+    if(posicion == 'f'){
+    	cout << "Ingrese la fila de la celula: "
+    		<< endl;
+    }
+    else{
+    	cout << "Ingrese la columna de la celula: "
+    	    << endl;
+    }
+	cout << ">>>";
 
     cin >> fila;
     return fila - 1;
-}
-
-int preguntarColummna(){
-    /*
-     * Pregunta en que columna quiere cargar la celula
-     */
-    int columna;
-    cout << "Ingrese la columna de la celula: "
-    << endl << ">>>";
-
-    cin >> columna;
-    return columna - 1;
 }
 
 
@@ -116,15 +129,19 @@ int cargarGrilla(Tablero &grilla){
      */
     int contador = 0, fila, columna;
     do{
-        fila = preguntarFila();
-        columna = preguntarColummna();
+        fila = preguntarPosicion('f');//Pregunto la posicion de la fila
+        columna = preguntarPosicion('c');//Pregunto la posicion de la columna
+
         if(controlarPosicion(fila, columna)) {
-            grilla.grillaInicial[fila][columna] = true;
-            grilla.grilla[fila][columna] = true;
-            contador++;
+        	//Marco la celda ingresada po el usuario como viva
+            grilla.grillaInicial[fila][columna] = grilla.grilla[fila][columna] = true;
+
+
+            contador++;//Sumo el contador de vivas
         }//Fin del if
         else{
-            cout << "La posicion ingresada no existe" << endl;
+            cout << "La posicion ingresada no existe"
+            	<< endl;
         }
     }while(continuarCarga());
 
@@ -132,14 +149,20 @@ int cargarGrilla(Tablero &grilla){
 }
 
 void imprimirVivas( int cantVivas){
-
+	/*
+	 * Informa la cantidad de vivas en el juego
+	 */
     cout << "Cantidad celulas vivas: " << cantVivas;
 }
 
 void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego){
+	/*
+	 * Imprime el estado inicial de la grilla junto con la cantidad
+	 * inicial de celulas vivas
+	 */
+    imprimirGrilla(juego.grillaJuego.grillaInicial);//Imprimo el estado inicial de la grilla
+    imprimirVivas(estadisticas.cantidadVivas);//Informo la cantidad de celulas vivas
 
-    imprimirGrilla(juego.grillaJuego.grillaInicial);
-    imprimirVivas(estadisticas.cantidadVivas);
     cout << endl;
 }
 
@@ -154,7 +177,9 @@ void imprimirCantidades(EstadisticasTurno estadisticas){
 }
 
 void imprimirPromedios(InformacionJuego juego){
-
+	/*
+	 * Imprime los promedios de muerte y nacimientos historicos
+	 */
     cout << "Promedio de muertes: " << calcularPromedio(juego.totalMuertes, juego.cantTurnos)
     << " -- " << "Promedio de nacimientos: " << calcularPromedio(juego.totalNacimientos, juego.cantTurnos)
     << endl;

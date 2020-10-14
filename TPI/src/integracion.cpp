@@ -9,7 +9,7 @@
 
 void reiniciarJuego(Tablero &grillas, EstadisticasTurno &estadisticas);
 EstadisticasTurno presentarJuego(Tablero &grilla);
-void jugar(InformacionJuego juego, EstadisticasTurno estadisticas);
+void jugar(InformacionJuego &juego, EstadisticasTurno &estadisticas);
 
 void juegoDeLaVida(){
     /*
@@ -28,6 +28,7 @@ EstadisticasTurno presentarJuego(Tablero &grillaJuego){
      */
     EstadisticasTurno estadisticas;
     imprimirBienvenida();
+
     setearEstadisticasCero(estadisticas);
     estadisticas.cantidadVivas = cargarGrilla(grillaJuego); // Cargo la grilla
 
@@ -38,13 +39,16 @@ void presentarEstadisticas(InformacionJuego &juego, EstadisticasTurno &estadisti
     /*
      * Presenta las estadisticas del ultimo turno
      */
-    imprimirCantidades(estadisticas);
-    actualizarValores(juego, estadisticas);
-    imprimirPromedios(juego);
+    imprimirCantidades(estadisticas);// De muertes, nacimientos y vivas
+    actualizarValores(juego, estadisticas);//Suma las muertes y los nacimientos al total
+    imprimirPromedios(juego);//Imprime los promedios de muertes y nacimientos historicos
 }
 
 char imprimirNuevoTurno(char eleccionPasada, InformacionJuego &juego, EstadisticasTurno &estadisticas){
-
+	/*
+	 * Imprime la grilla despues de haber avanzado en un turno o
+	 * reiniciado el juego
+	 */
     if(eleccionPasada == '1' || eleccionPasada == '2') {
         imprimirGrilla(juego.grillaJuego.grilla);
         presentarEstadisticas(juego, estadisticas);
@@ -54,26 +58,26 @@ char imprimirNuevoTurno(char eleccionPasada, InformacionJuego &juego, Estadistic
     return eleccionMenu;
 }
 
-void jugar(InformacionJuego juego, EstadisticasTurno estadisticas){
+void jugar(InformacionJuego &juego, EstadisticasTurno &estadisticas){
     /*
      * Se encarga de correr el juego
      */
     char eleccionMenu; //Lo uso para determinar la eleccion del menu
 
-    imprimirInicial(estadisticas, juego);
+    imprimirInicial(estadisticas, juego);//Imprimo el estado inicial
     do{
-        eleccionMenu = imprimirNuevoTurno(eleccionMenu, juego, estadisticas);
+        eleccionMenu = imprimirNuevoTurno(eleccionMenu, juego, estadisticas);//Imprimo y pido una opcion
         switch(eleccionMenu){
-            case '1':
+            case '1'://Avanzo el turno al siguiente
                 actualizarGrilla(juego.grillaJuego, estadisticas);
                 imprimirEstabilidad(estadisticas);
                 break;
-            case '2':
+            case '2'://reinicio el juego
                 reiniciarJuego(juego.grillaJuego, estadisticas);
                 break;
-            case '3':
+            case '3'://Me salgo del while, termina el programa
                 break;
-            default: imprimirEleccionErronea(eleccionMenu);
+            default: imprimirEleccionErronea(eleccionMenu);//Imprimo un mensaje de error
         }
     }while(eleccionMenu != '3');
 }

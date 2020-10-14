@@ -1,36 +1,9 @@
 /*
- * Modulo que contiene las estructuras
- * y sus metodos de inicializacion
+ * Modulo que contiene funciones de las estructuras
+ * definidas en el header correspondiente
  */
 
-struct Tablero{
-
-    bool grilla[20][80];
-
-    bool grillaInicial[20][80];
-
-};
-
-struct InformacionJuego{
-
-    Tablero grillaJuego;
-
-
-    unsigned int totalMuertes;
-    unsigned int totalNacimientos;
-    unsigned int cantTurnos;
-};
-
-struct EstadisticasTurno{
-    // Guarda las estadisticas
-    // de un turno en particular
-
-    unsigned int cantidadVivas;
-    unsigned int cantidadMuertes;
-    unsigned int cantidadNacimientos;
-    unsigned int cantidadCambios;
-
-};
+#include "estructuras.h"
 //Funciones de inicializacion de estructuras
 
 Tablero inicializarGrilla(){
