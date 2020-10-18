@@ -18,8 +18,8 @@ Tablero inicializarGrilla(){
         for(int columna = 0; columna < 80; columna++){
             tablero.grillaInicial[fila][columna] = false;
             tablero.grilla[fila][columna] = false;
-        }//Fin for interno
-    }//Fin for
+        }
+    }
 
     return tablero;
 }
@@ -34,8 +34,8 @@ InformacionJuego iniciarJuego(){
     juegoNuevo.grillaJuego = inicializarGrilla();
     juegoNuevo.totalNacimientos = 0;
     juegoNuevo.totalMuertes = 0;
-    juegoNuevo.cantTurnos = 0;//Considera al primer turno como
-    //la primer evolucion luego de haber colocado los valores
+    juegoNuevo.cantTurnos = 0;
+
 
     return juegoNuevo;
 }

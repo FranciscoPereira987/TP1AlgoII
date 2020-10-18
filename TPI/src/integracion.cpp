@@ -15,7 +15,8 @@ EstadisticasTurno presentarJuego(Tablero &grillaJuego){
     imprimirBienvenida();
 
     setearEstadisticasCero(estadisticas);
-    estadisticas.cantidadVivas = cargarGrilla(grillaJuego); // Cargo la grilla
+    /*Cargo la grilla*/
+    estadisticas.cantidadVivas = cargarGrilla(grillaJuego);
 
     return estadisticas;
 }
@@ -25,9 +26,12 @@ EstadisticasTurno presentarJuego(Tablero &grillaJuego){
  */
 void presentarEstadisticas(InformacionJuego &juego, EstadisticasTurno &estadisticas){
 
-    imprimirCantidades(estadisticas);// De muertes, nacimientos y vivas
-    actualizarValores(juego, estadisticas);//Suma las muertes y los nacimientos al total
-    imprimirPromedios(juego);//Imprime los promedios de muertes y nacimientos historicos
+	/*De muertes, nacimientos y vivas*/
+    imprimirCantidades(estadisticas);
+    /*Suma las muertes y los nacimientos al total*/
+    actualizarValores(juego, estadisticas);
+    /*Imprime los promedios de muertes y nacimientos historicos*/
+    imprimirPromedios(juego);
 }
 
 /*
@@ -57,9 +61,9 @@ void reiniciarJuego(Tablero &grillas, EstadisticasTurno &estadisticas){
              grillas.grilla[fila][columna] = grillas.grillaInicial[fila][columna];
              if(grillas.grillaInicial[fila][columna]){
                  estadisticas.cantidadVivas++;
-             }//Fin if
-         }//Fin for interno
-     }//Fin for externo
+             }
+         }
+     }
 
 }
 
@@ -68,22 +72,29 @@ void reiniciarJuego(Tablero &grillas, EstadisticasTurno &estadisticas){
  */
 void jugar(InformacionJuego &juego, EstadisticasTurno &estadisticas){
 
-    char eleccionMenu; //Lo uso para determinar la eleccion del menu
+	/*Lo uso para determinar la eleccion del menu*/
+    char eleccionMenu;
 
-    imprimirInicial(estadisticas, juego);//Imprimo el estado inicial
+    /*Imprimo el estado inicial*/
+    imprimirInicial(estadisticas, juego);
     do{
-        eleccionMenu = imprimirNuevoTurno(eleccionMenu, juego, estadisticas);//Imprimo y pido una opcion
+    	/*Imprimo y pido una opcion*/
+        eleccionMenu = imprimirNuevoTurno(eleccionMenu, juego, estadisticas);
         switch(eleccionMenu){
-            case '1'://Avanzo el turno al siguiente
+            /*Avanzo el turno al siguiente*/
+            case '1':
                 actualizarGrilla(juego.grillaJuego, estadisticas);
                 imprimirEstabilidad(estadisticas);
                 break;
-            case '2'://reinicio el juego
+            /*reinicio el juego*/
+            case '2':
                 reiniciarJuego(juego.grillaJuego, estadisticas);
                 break;
-            case '3'://Me salgo del while, termina el programa
+            /*Me salgo del while, termina el programa*/
+            case '3':
                 break;
-            default: imprimirEleccionErronea(eleccionMenu);//Imprimo un mensaje de error
+            /*Imprimo un mensaje de error*/
+            default: imprimirEleccionErronea(eleccionMenu);
         }
     }while(eleccionMenu != '3');
 }

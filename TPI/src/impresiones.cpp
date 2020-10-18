@@ -19,14 +19,14 @@ void imprimirGrilla(bool grilla[20][80]){
         for(int columna = 0; columna < 80; columna++){
             if(grilla[fila][columna]){
                 cout << "*";
-            }//Fin if
+            }
             else {
                 cout << ".";
-            }//Fin else
-        }//Fin for interno
+            }
+        }
         cout << endl;
-    }//Fin for externo
-}//Fin funcion
+    }
+}
 
 /*
 * Se encarga de imprimir el menu principal
@@ -47,28 +47,29 @@ void imprimirBienvenida(){
 		<< endl
     << ">>>";
 
-
-    cin >> comenzar; //Espera a que el usuario reaccione
+    /*Espera a que el usuario reaccione*/
+    cin >> comenzar;
 
 }
 
+/*
+* Informa que se ingreso una opcion invalida
+* en el menu del juego
+*/
 void imprimirEleccionErronea(char opcionElegida){
-	/*
-	 * Informa que se ingreso una opcion invalida
-	 * en el menu del juego
-	 */
+
     cout << "La opcion elegida: " << opcionElegida
     	<< endl
 	<< "Es incorrecta"
 		<< endl;
 }
 
-
+/*
+* Imprime el menu de juego y promptea al
+* usuario por una opcion
+*/
 char imprimirMenuJuego(){
-    /*
-     * Imprime el menu de juego y promptea al
-     * usuario por una opcion
-     */
+
     char decision;
 
     cout << "1- Avanzar turno"
@@ -130,16 +131,18 @@ int cargarGrilla(Tablero &grilla){
 
     int contador = 0, fila, columna;
     do{
-        fila = preguntarPosicion('f');//Pregunto la posicion de la fila
-        columna = preguntarPosicion('c');//Pregunto la posicion de la columna
+    	/*Pregunto la posicion de la fila*/
+        fila = preguntarPosicion('f');
+        /*Pregunto la posicion de la columna*/
+        columna = preguntarPosicion('c');
 
         if(controlarPosicion(fila, columna)) {
-        	//Marco la celda ingresada po el usuario como viva
+        	/*Marco la celda ingresada po el usuario como viva*/
             grilla.grillaInicial[fila][columna] = grilla.grilla[fila][columna] = true;
 
-
-            contador++;//Sumo el contador de vivas
-        }//Fin del if
+            /*Sumo el contador de vivas*/
+            contador++;
+        }
         else{
             cout << "La posicion ingresada no existe"
             	<< endl;
@@ -163,8 +166,10 @@ void imprimirVivas( int cantVivas){
 */
 void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego){
 
-    imprimirGrilla(juego.grillaJuego.grillaInicial);//Imprimo el estado inicial de la grilla
-    imprimirVivas(estadisticas.cantidadVivas);//Informo la cantidad de celulas vivas
+	/*Imprimo el estado inicial de la grilla*/
+    imprimirGrilla(juego.grillaJuego.grillaInicial);
+    /*Informo la cantidad de celulas vivas*/
+    imprimirVivas(estadisticas.cantidadVivas);
 
     cout << endl;
 }
@@ -197,5 +202,5 @@ void imprimirEstabilidad(EstadisticasTurno &estadisticas){
 
     if(evaluarEstabilidad(estadisticas)) {
         cout << ">>>No hubo cambios por 2 o mas turnos<<<" << endl;
-    }//Fin if
+    }
 }
