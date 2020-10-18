@@ -3,19 +3,18 @@
  * y las funciones que piden ingreso de datos del usuario
  */
 #include "estructuras.h"
-#include "aritmetica.h"
-
-
 #include <iostream>
+
+#include "operacionesLogicas.h"
 using std::cout;
 using std::endl;
 using std::cin;
 
-
+/*
+* Imprime la grilla con su estado actual en la pantalla
+*/
 void imprimirGrilla(bool grilla[20][80]){
-    /*
-     * Imprime la grilla con su estado actual en la pantalla
-     */
+
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
             if(grilla[fila][columna]){
@@ -29,13 +28,13 @@ void imprimirGrilla(bool grilla[20][80]){
     }//Fin for externo
 }//Fin funcion
 
-
+/*
+* Se encarga de imprimir el menu principal
+* y de promptear por una respuesta al usuario
+*
+*/
 void imprimirBienvenida(){
-    /*
-     * Se encarga de imprimir el menu principal
-     * y de promptear por una respuesta al usuario
-     *
-     */
+
     char comenzar;
 
     cout << "--------------------------"
@@ -85,10 +84,11 @@ char imprimirMenuJuego(){
     return decision;
 }
 
+/*
+* Define si se siguen o no se siguen cargando los datos
+*/
 bool continuarCarga(){
-    /*
-     * Define si se siguen o no se siguen cargando los datos
-     */
+
     cout << "Ingrese 1 para continuar, cualquier otra tecla para "
     << "terminar la carga de datos:"
 		<< endl
@@ -100,11 +100,12 @@ bool continuarCarga(){
     return (decision == '1');
 }
 
+/*
+* Pregunta fila o columna donde el usuario quiera
+* ingresar un dato y lo devuelve.
+*/
 int preguntarPosicion(char posicion){
-    /*
-     * Pregunta fila o columna donde el usuario quiera
-     * ingresar un dato y lo devuelve.
-     */
+
     int fila;
 
     if(posicion == 'f'){
@@ -121,12 +122,12 @@ int preguntarPosicion(char posicion){
     return fila - 1;
 }
 
-
+/*
+* Permite que el usuario carge la cantidad de
+* celulas vivas que quiera
+*/
 int cargarGrilla(Tablero &grilla){
-    /*
-     * Permite que el usuario carge la cantidad de
-     * celulas vivas que quiera
-     */
+
     int contador = 0, fila, columna;
     do{
         fila = preguntarPosicion('f');//Pregunto la posicion de la fila
@@ -148,48 +149,52 @@ int cargarGrilla(Tablero &grilla){
     return contador;
 }
 
+/*
+ * Informa la cantidad de vivas en el juego
+*/
 void imprimirVivas( int cantVivas){
-	/*
-	 * Informa la cantidad de vivas en el juego
-	 */
+
     cout << "Cantidad celulas vivas: " << cantVivas;
 }
 
+/*
+* Imprime el estado inicial de la grilla junto con la cantidad
+* inicial de celulas vivas
+*/
 void imprimirInicial(EstadisticasTurno estadisticas, InformacionJuego juego){
-	/*
-	 * Imprime el estado inicial de la grilla junto con la cantidad
-	 * inicial de celulas vivas
-	 */
+
     imprimirGrilla(juego.grillaJuego.grillaInicial);//Imprimo el estado inicial de la grilla
     imprimirVivas(estadisticas.cantidadVivas);//Informo la cantidad de celulas vivas
 
     cout << endl;
 }
 
+/*
+ * Imprime las estadisticas de un turno
+ */
 void imprimirCantidades(EstadisticasTurno estadisticas){
-    /*
-     * Imprime las estadisticas de un turno
-     */
+
     imprimirVivas(estadisticas.cantidadVivas);
     cout << " -- " << "Cantidad de muertes: " << estadisticas.cantidadMuertes
     << " -- " << "Cantidad de nacimientos: " << estadisticas.cantidadNacimientos
     << endl;
 }
 
+/*
+ * Imprime los promedios de muerte y nacimientos historicos
+ */
 void imprimirPromedios(InformacionJuego juego){
-	/*
-	 * Imprime los promedios de muerte y nacimientos historicos
-	 */
+
     cout << "Promedio de muertes: " << calcularPromedio(juego.totalMuertes, juego.cantTurnos)
     << " -- " << "Promedio de nacimientos: " << calcularPromedio(juego.totalNacimientos, juego.cantTurnos)
     << endl;
 }
 
-
+/*
+ * Le informa al usuario que no hubo cambios en dos o mas turnos
+ */
 void imprimirEstabilidad(EstadisticasTurno &estadisticas){
-    /*
-     * Le informa al usuario que no hubo cambios en dos o mas turnos
-     */
+
     if(evaluarEstabilidad(estadisticas)) {
         cout << ">>>No hubo cambios por 2 o mas turnos<<<" << endl;
     }//Fin if

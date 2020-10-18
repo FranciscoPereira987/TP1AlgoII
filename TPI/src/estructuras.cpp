@@ -6,11 +6,13 @@
 #include "estructuras.h"
 //Funciones de inicializacion de estructuras
 
+
+/*
+* Inicializa la grilla con
+* todos valores en false
+*/
 Tablero inicializarGrilla(){
-    /*
-     * Inicializa la grilla con
-     * todos valores en false
-     */
+
     Tablero tablero;
     for(int fila = 0; fila < 20; fila++){
         for(int columna = 0; columna < 80; columna++){
@@ -21,12 +23,12 @@ Tablero inicializarGrilla(){
 
     return tablero;
 }
-
+/*
+* Inicializa la estructura principal del juego
+*
+*/
 InformacionJuego iniciarJuego(){
-    /*
-     * Inicializa la estructura principal del juego
-     *
-     */
+
     InformacionJuego juegoNuevo;
 
     juegoNuevo.grillaJuego = inicializarGrilla();
@@ -38,11 +40,12 @@ InformacionJuego iniciarJuego(){
     return juegoNuevo;
 }
 
+/*
+* Devuelve todos los valores de una estadistica de juego
+* a cero
+*/
 void setearEstadisticasCero(EstadisticasTurno& estadisticas){
-    /*
-     * Devuelve todos los valores de una estadistica de juego
-     * a cero
-     */
+
     estadisticas.cantidadVivas = 0;
     estadisticas.cantidadMuertes = 0;
     estadisticas.cantidadNacimientos = 0;

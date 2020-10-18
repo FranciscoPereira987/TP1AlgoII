@@ -4,17 +4,24 @@
 #ifndef TP1ALGOII_ESTRUCTURAS_H
 #define TP1ALGOII_ESTRUCTURAS_H
 
+/*
+ * Contiene a la grilla y una grilla
+ * inicial
+ */
+
 struct Tablero{
-	//Contiene a la grilla y una grilla
-	//inicial
+
     bool grilla[20][80];
 
     bool grillaInicial[20][80];
 };
 
+/*
+ * Contiene a la grilla e informacion
+ * general sobre el juego
+ */
 struct InformacionJuego{
-	//Contiene a la grilla e informacion
-	//general sobre el juego
+
     Tablero grillaJuego;
 
 
@@ -23,9 +30,12 @@ struct InformacionJuego{
     unsigned int cantTurnos;
 };
 
+/*
+ * Guarda las estadisticas
+ * de un turno en particular
+ */
 struct EstadisticasTurno{
-    // Guarda las estadisticas
-    // de un turno en particular
+
 
     unsigned int cantidadVivas;
     unsigned int cantidadMuertes;
