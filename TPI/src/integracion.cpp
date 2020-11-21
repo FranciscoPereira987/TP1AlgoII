@@ -40,9 +40,12 @@ void presentarEstadisticas(InformacionJuego &juego, EstadisticasTurno &estadisti
  */
 char imprimirNuevoTurno(char eleccionPasada, InformacionJuego &juego, EstadisticasTurno &estadisticas){
 
-    if(eleccionPasada == '1' || eleccionPasada == '2') {
+    if(eleccionPasada == '1') {
         imprimirGrilla(juego.grillaJuego.grilla);
         presentarEstadisticas(juego, estadisticas);
+    }
+    else if(eleccionPasada == '2'){
+    	imprimirInicial(estadisticas, juego);
     }
     char eleccionMenu = imprimirMenuJuego();
 
@@ -53,13 +56,15 @@ char imprimirNuevoTurno(char eleccionPasada, InformacionJuego &juego, Estadistic
  * Reinicia el juego copiando la grilla inicial
  * en la grilla
  */
-void reiniciarJuego(Tablero &grillas, EstadisticasTurno &estadisticas){
+void reiniciarJuego(InformacionJuego &juego, EstadisticasTurno &estadisticas){
 
     setearEstadisticasCero(estadisticas);
+    juego.totalMuertes = 0; juego.totalNacimientos = 0;
+    juego.cantTurnos = 0;
      for(int fila = 0; fila < 20; fila++){
          for(int columna = 0; columna < 80; columna++){
-             grillas.grilla[fila][columna] = grillas.grillaInicial[fila][columna];
-             if(grillas.grillaInicial[fila][columna]){
+             juego.grillaJuego.grilla[fila][columna] = juego.grillaJuego.grillaInicial[fila][columna];
+             if(juego.grillaJuego.grillaInicial[fila][columna]){
                  estadisticas.cantidadVivas++;
              }
          }
@@ -88,7 +93,7 @@ void jugar(InformacionJuego &juego, EstadisticasTurno &estadisticas){
                 break;
             /*reinicio el juego*/
             case '2':
-                reiniciarJuego(juego.grillaJuego, estadisticas);
+                reiniciarJuego(juego, estadisticas);
                 break;
             /*Me salgo del while, termina el programa*/
             case '3':
